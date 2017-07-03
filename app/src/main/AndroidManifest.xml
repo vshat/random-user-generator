@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.github.vshat.randomusergenerator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppMaterialTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -17,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserDetailActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".view.UserDetailActivity"
+            android:parentActivityName=".view.MainActivity"/>
 
     </application>
 

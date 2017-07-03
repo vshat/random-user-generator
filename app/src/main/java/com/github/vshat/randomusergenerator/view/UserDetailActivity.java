@@ -1,12 +1,13 @@
-package com.github.vshat.randomusergenerator;
+package com.github.vshat.randomusergenerator.view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Window;
 import android.widget.TextView;
+
+import com.github.vshat.randomusergenerator.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +78,7 @@ public class UserDetailActivity extends AppCompatActivity {
 
 
     private void setupToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_userdetail);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(" ");

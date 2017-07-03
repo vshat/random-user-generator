@@ -1,4 +1,4 @@
-package com.github.vshat.randomusergenerator;
+package com.github.vshat.randomusergenerator.view.adapters;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -7,16 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.vshat.randomusergenerator.R;
+import com.github.vshat.randomusergenerator.model.data.Name;
+import com.github.vshat.randomusergenerator.model.data.User;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
     private OnItemClickListener listener;
-    private List<String> stringList;
 
-    public UsersAdapter(List<String> stringList) {
-        this.stringList = stringList;
+    public void setUsersList(List<User> usersList) {
+        this.usersList = usersList;
+        notifyDataSetChanged();
     }
+
+    private List<User> usersList = new ArrayList<>();
+
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
@@ -31,14 +40,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String text = stringList.get(position);
-        holder.stringView.setText(text);
+        User user = usersList.get(position);
+        Name userName = user.getName();
+        holder.stringView.setText(userName.getFirst() + " " + userName.getLast());
 
     }
 
     @Override
     public int getItemCount() {
-        return stringList.size();
+        return usersList.size();
     }
 
     public interface OnItemClickListener {
