@@ -1,4 +1,4 @@
-package com.github.vshat.randomusergenerator.view;
+package com.github.vshat.randomusergenerator.view.fragments;
 
 
 import com.github.vshat.randomusergenerator.model.data.UserDTO;
@@ -12,7 +12,5 @@ public interface UsersListView {
 
     void showError(String error);
 
-    void showEmptyList();
-
-    void showUserDetails(UserDetailInfo userDetailInfo);
+    void startUserDetailFragment(UserDetailInfo userDetailInfo);
 }

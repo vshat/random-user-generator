@@ -1,105 +1,63 @@
 package com.github.vshat.randomusergenerator.view;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
 
 import com.github.vshat.randomusergenerator.R;
-import com.github.vshat.randomusergenerator.presenter.UsersListPresenter;
-import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
 import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
-import com.github.vshat.randomusergenerator.view.adapters.UsersAdapter;
+import com.github.vshat.randomusergenerator.view.fragments.UserDetailFragment;
+import com.github.vshat.randomusergenerator.view.fragments.UsersListFragment;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+// TODO: fix back top-left button in all fragments
 
-public class MainActivity extends AppCompatActivity implements UsersAdapter.OnItemClickListener, UsersListView {
+// TODO: fix data loss when back pressed
 
-    @BindView(R.id.toolbar_main) Toolbar toolbar;
-    @BindView(R.id.recyclerview_main) RecyclerView recyclerView;
-    private UsersAdapter usersAdapter;
-    private UsersListPresenter presenter;
+public class MainActivity extends AppCompatActivity implements ActivityCallback {
 
-    private static List<String> createStringList() {
-        List<String> result = new ArrayList<>(10);
+    private static String TAG = "TAG";
 
-        for (int i = 0; i < 10; i++) {
-            result.add(i, "UserDTO #" + i);
-        }
-
-        return result;
-    }
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
+        fragmentManager = getSupportFragmentManager();
 
-        setupToolbar();
-
-        setupRecyclerView();
-
-        presenter = new UsersListPresenter(this);
-    }
-
-    private void setupToolbar() {
-        setSupportActionBar(toolbar);
-    }
-
-    private void setupRecyclerView() {
-        usersAdapter = new UsersAdapter(this);
-        usersAdapter.setOnItemClickListener(this);
-
-        recyclerView.setAdapter(usersAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    @Override
-    public void onItemClick(View itemView, int position) {
-        presenter.onUserSelected(position);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (presenter != null) {
-            presenter.onStop();
+        Fragment fragment = fragmentManager.findFragmentByTag(TAG);
+        if (fragment == null) {
+            replaceFragment(new UsersListFragment(), false);
         }
     }
 
-
-    void showSnackbar(String text) {
-        Snackbar.make(toolbar, text, Snackbar.LENGTH_LONG).show();
+    private void replaceFragment(Fragment fragment, boolean addBackStack) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.framelayout_main, fragment, TAG);
+        if (addBackStack) {
+            transaction.addToBackStack(null);
+        }
+        transaction.commit();
     }
 
     @Override
-    public void showData(List<UserBriefInfo> list) {
-        usersAdapter.setUsersList(list);
-    }
-
-    @Override
-    public void showError(String error) {
-        showSnackbar(error);
-    }
-
-    @Override
-    public void showEmptyList() {
-        showSnackbar("Empty list");
+    public ActionBar setupToolbar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        return supportActionBar;
 
     }
 
+
     @Override
-    public void showUserDetails(UserDetailInfo userDetailInfo) {
-        UserDetailActivity.start(this, userDetailInfo);
+    public void startUserDetailFragment(UserDetailInfo userDetailInfo) {
+        replaceFragment(UserDetailFragment.newInstance(userDetailInfo), true);
     }
 }

@@ -47,7 +47,10 @@ public class UserDetailInfoMapper {
         String[] streetParts = TextUtils.split(locationDTO.getStreet(), " ");
         StringBuilder streetBuilder = new StringBuilder();
         for (String streetPart : streetParts) {
-            streetBuilder.append(MyTextUtils.capitalizeFirstLetter(streetPart));
+            streetBuilder
+                    .append(MyTextUtils.capitalizeFirstLetter(streetPart))
+                    .append(" ");
+
         }
 
         return MyTextUtils.capitalizeFirstLetter(locationDTO.getState()) +

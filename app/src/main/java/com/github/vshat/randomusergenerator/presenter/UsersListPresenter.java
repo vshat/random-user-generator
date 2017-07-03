@@ -1,6 +1,8 @@
 package com.github.vshat.randomusergenerator.presenter;
 
 
+import android.os.Bundle;
+
 import com.github.vshat.randomusergenerator.model.Model;
 import com.github.vshat.randomusergenerator.model.ModelImpl;
 import com.github.vshat.randomusergenerator.model.data.ApiResponseDTO;
@@ -9,20 +11,25 @@ import com.github.vshat.randomusergenerator.presenter.mappers.UserBriefInfoListM
 import com.github.vshat.randomusergenerator.presenter.mappers.UserDetailInfoMapper;
 import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
 import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
-import com.github.vshat.randomusergenerator.view.UsersListView;
+import com.github.vshat.randomusergenerator.view.fragments.UsersListView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.internal.util.SuppressAnimalSniffer;
 import io.reactivex.observers.DisposableObserver;
+
+// TODO: Implement loading circle
 
 public class UsersListPresenter {
     private final static int USERS_COUNT = 10;
+    private static final String BUNDLE_USER_DTOS_KEY = "bundle_user_dtos_key";
 
-    private List<UserDTO> userDTOs;
+    private List<UserDTO> userDTOs = new ArrayList<>();
 
     private Model model = new ModelImpl();
 
@@ -31,7 +38,29 @@ public class UsersListPresenter {
 
     public UsersListPresenter(UsersListView view) {
         this.view = view;
-        loadUsers();
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            userDTOs = (List<UserDTO>) savedInstanceState.getSerializable(BUNDLE_USER_DTOS_KEY);
+        }
+
+        if (!isUserDTOsEmpty()) {
+            processUserDTOs(userDTOs);
+        } else {
+            loadUsers();
+        }
+
+    }
+
+    private boolean isUserDTOsEmpty() {
+        return userDTOs == null || userDTOs.isEmpty();
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        if (!isUserDTOsEmpty()) {
+            outState.putSerializable(BUNDLE_USER_DTOS_KEY, new ArrayList<>(userDTOs));
+        }
     }
 
     public void onStop() {
@@ -43,7 +72,7 @@ public class UsersListPresenter {
     public void onUserSelected(int position) {
         UserDTO selectedUserDTO = userDTOs.get(position);
         UserDetailInfo userDetailInfo = UserDetailInfoMapper.map(selectedUserDTO);
-        view.showUserDetails(userDetailInfo);
+        view.startUserDetailFragment(userDetailInfo);
 
     }
 
@@ -97,6 +126,5 @@ public class UsersListPresenter {
             return c;
         });
     }
-
 
 }
