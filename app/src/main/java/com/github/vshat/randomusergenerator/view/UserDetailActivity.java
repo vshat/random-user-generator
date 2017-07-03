@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.vshat.randomusergenerator.R;
+import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
 import com.github.vshat.randomusergenerator.util.PicassoUtils;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +35,12 @@ public class UserDetailActivity extends AppCompatActivity {
     @BindView(R.id.textview_userdetail_sha1) TextView sha1TextView;
     @BindView(R.id.textview_userdetail_sha256) TextView sha256TextView;
 
+    private static final String EXTRA_USER_DETAIL_INFO = "extra_user_detail_info";
 
-    public static void start(Context context, String name) {
+
+    public static void start(Context context, UserDetailInfo userDetailInfo) {
         Intent starter = new Intent(context, UserDetailActivity.class);
-        starter.putExtra("name", name);
+        starter.putExtra(EXTRA_USER_DETAIL_INFO, userDetailInfo);
         context.startActivity(starter);
     }
 
@@ -49,19 +51,20 @@ public class UserDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        displayName(getIntent().getStringExtra("name"));
-
         setupToolbar();
+
+        UserDetailInfo userDetailInfo = getIntent().getParcelableExtra(EXTRA_USER_DETAIL_INFO);
+        displayData(userDetailInfo);
 
     }
 
-    private void displayName(String name) {
-        titleTextView.setText(name);
-        subtitleTextView.setText("vadym.shatokhin@gmail.com");
+    private void displayData(UserDetailInfo userDetailInfo) {
+        titleTextView.setText(userDetailInfo.getFullName());
+        subtitleTextView.setText(userDetailInfo.getEmail());
         phoneCellTextView.setText("8-800-555-35-35");
         phoneHomeTextView.setText("762-10-20");
         locationTextView.setText("Ukraine, Odessa, Rabina 15");
-        aboutUserTextView.setText("About " + name);
+        aboutUserTextView.setText("About " + userDetailInfo.getFirstName());
         dateOfBirthTextView.setText("11.05.1997 14:20");
         registeredTextView.setText("25.03.2014 00-00");
         idNameTextView.setText("ID");
@@ -73,9 +76,7 @@ public class UserDetailActivity extends AppCompatActivity {
         sha1TextView.setText("58cd166fe955a09c57c9e34bf8a0de8a8bac7f33");
         sha256TextView.setText("5fb87a18e7163ba83f9751afb5f4729ce31355795b59978b2c9128b7736ee7ac");
 
-        PicassoUtils.loadImage(this, "https://randomuser.me/api/portraits/men/78.jpg", avatarImageView);
-
-
+        PicassoUtils.loadImage(this, userDetailInfo.getAvatarUrl(), avatarImageView);
     }
 
 

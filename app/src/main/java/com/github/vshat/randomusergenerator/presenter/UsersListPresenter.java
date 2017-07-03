@@ -5,8 +5,10 @@ import com.github.vshat.randomusergenerator.model.Model;
 import com.github.vshat.randomusergenerator.model.ModelImpl;
 import com.github.vshat.randomusergenerator.model.data.ApiResponseDTO;
 import com.github.vshat.randomusergenerator.model.data.UserDTO;
-import com.github.vshat.randomusergenerator.presenter.mappers.UserBriefInfoMapper;
+import com.github.vshat.randomusergenerator.presenter.mappers.UserBriefInfoListMapper;
+import com.github.vshat.randomusergenerator.presenter.mappers.UserDetailInfoMapper;
 import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
+import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
 import com.github.vshat.randomusergenerator.view.UsersListView;
 
 import java.util.Collections;
@@ -30,6 +32,19 @@ public class UsersListPresenter {
     public UsersListPresenter(UsersListView view) {
         this.view = view;
         loadUsers();
+    }
+
+    public void onStop() {
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
+
+    public void onUserSelected(int position) {
+        UserDTO selectedUserDTO = userDTOs.get(position);
+        UserDetailInfo userDetailInfo = UserDetailInfoMapper.map(selectedUserDTO);
+        view.showUserDetails(userDetailInfo);
+
     }
 
     private void loadUsers() {
@@ -68,7 +83,7 @@ public class UsersListPresenter {
     private void processUserDTOs(List<UserDTO> userDTOs) {
         this.userDTOs = userDTOs;
         sortUserDTOs(this.userDTOs);
-        List<UserBriefInfo> usersBriefInfo = UserBriefInfoMapper.map(this.userDTOs);
+        List<UserBriefInfo> usersBriefInfo = UserBriefInfoListMapper.map(this.userDTOs);
         view.showData(usersBriefInfo);
     }
 
@@ -81,12 +96,6 @@ public class UsersListPresenter {
             }
             return c;
         });
-    }
-
-    public void onStop() {
-        if (!disposable.isDisposed()) {
-            disposable.dispose();
-        }
     }
 
 

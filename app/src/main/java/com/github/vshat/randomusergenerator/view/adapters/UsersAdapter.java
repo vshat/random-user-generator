@@ -12,14 +12,12 @@ import android.widget.TextView;
 import com.github.vshat.randomusergenerator.R;
 import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
 import com.github.vshat.randomusergenerator.util.PicassoUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
@@ -50,7 +48,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserBriefInfo userBriefInfo = usersList.get(position);
-        holder.nameTextView.setText(userBriefInfo.getName());
+        holder.nameTextView.setText(userBriefInfo.getFullName());
         PicassoUtils.loadImage(context, userBriefInfo.getAvatarUrl(), holder.avatarImageView);
 
     }

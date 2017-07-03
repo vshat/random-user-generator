@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.github.vshat.randomusergenerator.R;
 import com.github.vshat.randomusergenerator.presenter.UsersListPresenter;
 import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
+import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
 import com.github.vshat.randomusergenerator.view.adapters.UsersAdapter;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
 
     @Override
     public void onItemClick(View itemView, int position) {
-        UserDetailActivity.start(this, ((TextView)itemView.findViewById(R.id.textview_main_user_first_last_name)).getText().toString());
+        presenter.onUserSelected(position);
     }
 
     @Override
@@ -95,5 +96,10 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
     public void showEmptyList() {
         showSnackbar("Empty list");
 
+    }
+
+    @Override
+    public void showUserDetails(UserDetailInfo userDetailInfo) {
+        UserDetailActivity.start(this, userDetailInfo);
     }
 }
