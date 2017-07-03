@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User implements Parcelable
+public class UserDTO implements Parcelable
 {
 
     @SerializedName("gender")
@@ -15,16 +15,16 @@ public class User implements Parcelable
     private String gender;
     @SerializedName("name")
     @Expose
-    private Name name;
+    private NameDTO nameDTO;
     @SerializedName("location")
     @Expose
-    private Location location;
+    private LocationDTO locationDTO;
     @SerializedName("email")
     @Expose
     private String email;
     @SerializedName("login")
     @Expose
-    private Login login;
+    private LoginDTO loginDTO;
     @SerializedName("dob")
     @Expose
     private String dob;
@@ -39,38 +39,38 @@ public class User implements Parcelable
     private String cell;
     @SerializedName("id")
     @Expose
-    private Id id;
+    private IdDTO idDTO;
     @SerializedName("picture")
     @Expose
-    private Picture picture;
+    private PictureDTO pictureDTO;
     @SerializedName("nat")
     @Expose
     private String nat;
-    public final static Parcelable.Creator<User> CREATOR = new Creator<User>() {
+    public final static Parcelable.Creator<UserDTO> CREATOR = new Creator<UserDTO>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public User createFromParcel(Parcel in) {
-            User instance = new User();
+        public UserDTO createFromParcel(Parcel in) {
+            UserDTO instance = new UserDTO();
             instance.gender = ((String) in.readValue((String.class.getClassLoader())));
-            instance.name = ((Name) in.readValue((Name.class.getClassLoader())));
-            instance.location = ((Location) in.readValue((Location.class.getClassLoader())));
+            instance.nameDTO = ((NameDTO) in.readValue((NameDTO.class.getClassLoader())));
+            instance.locationDTO = ((LocationDTO) in.readValue((LocationDTO.class.getClassLoader())));
             instance.email = ((String) in.readValue((String.class.getClassLoader())));
-            instance.login = ((Login) in.readValue((Login.class.getClassLoader())));
+            instance.loginDTO = ((LoginDTO) in.readValue((LoginDTO.class.getClassLoader())));
             instance.dob = ((String) in.readValue((String.class.getClassLoader())));
             instance.registered = ((String) in.readValue((String.class.getClassLoader())));
             instance.phone = ((String) in.readValue((String.class.getClassLoader())));
             instance.cell = ((String) in.readValue((String.class.getClassLoader())));
-            instance.id = ((Id) in.readValue((Id.class.getClassLoader())));
-            instance.picture = ((Picture) in.readValue((Picture.class.getClassLoader())));
+            instance.idDTO = ((IdDTO) in.readValue((IdDTO.class.getClassLoader())));
+            instance.pictureDTO = ((PictureDTO) in.readValue((PictureDTO.class.getClassLoader())));
             instance.nat = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
-        public User[] newArray(int size) {
-            return (new User[size]);
+        public UserDTO[] newArray(int size) {
+            return (new UserDTO[size]);
         }
 
     }
@@ -84,20 +84,20 @@ public class User implements Parcelable
         this.gender = gender;
     }
 
-    public Name getName() {
-        return name;
+    public NameDTO getNameDTO() {
+        return nameDTO;
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setNameDTO(NameDTO nameDTO) {
+        this.nameDTO = nameDTO;
     }
 
-    public Location getLocation() {
-        return location;
+    public LocationDTO getLocationDTO() {
+        return locationDTO;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationDTO(LocationDTO locationDTO) {
+        this.locationDTO = locationDTO;
     }
 
     public String getEmail() {
@@ -108,12 +108,12 @@ public class User implements Parcelable
         this.email = email;
     }
 
-    public Login getLogin() {
-        return login;
+    public LoginDTO getLoginDTO() {
+        return loginDTO;
     }
 
-    public void setLogin(Login login) {
-        this.login = login;
+    public void setLoginDTO(LoginDTO loginDTO) {
+        this.loginDTO = loginDTO;
     }
 
     public String getDob() {
@@ -148,20 +148,20 @@ public class User implements Parcelable
         this.cell = cell;
     }
 
-    public Id getId() {
-        return id;
+    public IdDTO getIdDTO() {
+        return idDTO;
     }
 
-    public void setId(Id id) {
-        this.id = id;
+    public void setIdDTO(IdDTO idDTO) {
+        this.idDTO = idDTO;
     }
 
-    public Picture getPicture() {
-        return picture;
+    public PictureDTO getPictureDTO() {
+        return pictureDTO;
     }
 
-    public void setPicture(Picture picture) {
-        this.picture = picture;
+    public void setPictureDTO(PictureDTO pictureDTO) {
+        this.pictureDTO = pictureDTO;
     }
 
     public String getNat() {
@@ -174,16 +174,16 @@ public class User implements Parcelable
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(gender);
-        dest.writeValue(name);
-        dest.writeValue(location);
+        dest.writeValue(nameDTO);
+        dest.writeValue(locationDTO);
         dest.writeValue(email);
-        dest.writeValue(login);
+        dest.writeValue(loginDTO);
         dest.writeValue(dob);
         dest.writeValue(registered);
         dest.writeValue(phone);
         dest.writeValue(cell);
-        dest.writeValue(id);
-        dest.writeValue(picture);
+        dest.writeValue(idDTO);
+        dest.writeValue(pictureDTO);
         dest.writeValue(nat);
     }
 

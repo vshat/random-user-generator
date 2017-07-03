@@ -3,11 +3,11 @@ package com.github.vshat.randomusergenerator.model.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location implements Parcelable
+public class LocationDTO implements Parcelable
 {
 
     @SerializedName("street")
@@ -22,14 +22,14 @@ public class Location implements Parcelable
     @SerializedName("postcode")
     @Expose
     private String postcode;
-    public final static Parcelable.Creator<Location> CREATOR = new Creator<Location>() {
+    public final static Parcelable.Creator<LocationDTO> CREATOR = new Creator<LocationDTO>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Location createFromParcel(Parcel in) {
-            Location instance = new Location();
+        public LocationDTO createFromParcel(Parcel in) {
+            LocationDTO instance = new LocationDTO();
             instance.street = ((String) in.readValue((String.class.getClassLoader())));
             instance.city = ((String) in.readValue((String.class.getClassLoader())));
             instance.state = ((String) in.readValue((String.class.getClassLoader())));
@@ -37,8 +37,8 @@ public class Location implements Parcelable
             return instance;
         }
 
-        public Location[] newArray(int size) {
-            return (new Location[size]);
+        public LocationDTO[] newArray(int size) {
+            return (new LocationDTO[size]);
         }
 
     }

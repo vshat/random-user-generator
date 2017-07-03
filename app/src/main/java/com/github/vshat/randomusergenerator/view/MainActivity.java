@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.vshat.randomusergenerator.R;
-import com.github.vshat.randomusergenerator.model.data.User;
 import com.github.vshat.randomusergenerator.presenter.UsersListPresenter;
+import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
 import com.github.vshat.randomusergenerator.view.adapters.UsersAdapter;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements UsersAdapter.OnItemClickListener, MvpView {
+public class MainActivity extends AppCompatActivity implements UsersAdapter.OnItemClickListener, UsersListView {
 
     @BindView(R.id.toolbar_main) Toolbar toolbar;
     @BindView(R.id.recyclerview_main) RecyclerView recyclerView;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
         List<String> result = new ArrayList<>(10);
 
         for (int i = 0; i < 10; i++) {
-            result.add(i, "User #" + i);
+            result.add(i, "UserDTO #" + i);
         }
 
         return result;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
     }
 
     private void setupRecyclerView() {
-        usersAdapter = new UsersAdapter();
+        usersAdapter = new UsersAdapter(this);
         usersAdapter.setOnItemClickListener(this);
 
         recyclerView.setAdapter(usersAdapter);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
 
     @Override
     public void onItemClick(View itemView, int position) {
-        UserDetailActivity.start(this, ((TextView)itemView.findViewById(R.id.textview_user_name)).getText().toString());
+        UserDetailActivity.start(this, ((TextView)itemView.findViewById(R.id.textview_main_user_first_last_name)).getText().toString());
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
     }
 
     @Override
-    public void showData(List<User> list) {
+    public void showData(List<UserBriefInfo> list) {
         usersAdapter.setUsersList(list);
     }
 

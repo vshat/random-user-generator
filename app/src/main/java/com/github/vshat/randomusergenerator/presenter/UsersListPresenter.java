@@ -3,8 +3,12 @@ package com.github.vshat.randomusergenerator.presenter;
 
 import com.github.vshat.randomusergenerator.model.Model;
 import com.github.vshat.randomusergenerator.model.ModelImpl;
-import com.github.vshat.randomusergenerator.model.data.ApiResponse;
-import com.github.vshat.randomusergenerator.view.MvpView;
+import com.github.vshat.randomusergenerator.model.data.ApiResponseDTO;
+import com.github.vshat.randomusergenerator.presenter.mappers.UserBriefInfoMapper;
+import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
+import com.github.vshat.randomusergenerator.view.UsersListView;
+
+import java.util.List;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -16,10 +20,10 @@ public class UsersListPresenter {
 
     private Model model = new ModelImpl();
 
-    private MvpView view;
+    private UsersListView view;
     private Disposable disposable = Disposables.empty();
 
-    public UsersListPresenter(MvpView view) {
+    public UsersListPresenter(UsersListView view) {
         this.view = view;
         loadUsers();
     }
@@ -31,12 +35,13 @@ public class UsersListPresenter {
         }
 
         disposable = model.getUsersList(USERS_COUNT)
-                .subscribeWith(new DisposableObserver<ApiResponse>() {
+                .subscribeWith(new DisposableObserver<ApiResponseDTO>() {
                     @Override
-                    public void onNext(@NonNull ApiResponse apiResponse) {
-                        if (apiResponse != null) {
-                            if (apiResponse.getError() == null) {
-                                view.showData(apiResponse.getUsers());
+                    public void onNext(@NonNull ApiResponseDTO apiResponseDTO) {
+                        if (apiResponseDTO != null) {
+                            if (apiResponseDTO.getError() == null) {
+                                List<UserBriefInfo> users = UserBriefInfoMapper.map(apiResponseDTO.getUserDTOs());
+                                view.showData(users);
                             }
                         } else {
                             view.showError("Null response");

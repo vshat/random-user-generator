@@ -3,11 +3,11 @@ package com.github.vshat.randomusergenerator.model.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Picture implements Parcelable
+public class PictureDTO implements Parcelable
 {
 
     @SerializedName("large")
@@ -19,22 +19,22 @@ public class Picture implements Parcelable
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
-    public final static Parcelable.Creator<Picture> CREATOR = new Creator<Picture>() {
+    public final static Parcelable.Creator<PictureDTO> CREATOR = new Creator<PictureDTO>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Picture createFromParcel(Parcel in) {
-            Picture instance = new Picture();
+        public PictureDTO createFromParcel(Parcel in) {
+            PictureDTO instance = new PictureDTO();
             instance.large = ((String) in.readValue((String.class.getClassLoader())));
             instance.medium = ((String) in.readValue((String.class.getClassLoader())));
             instance.thumbnail = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
-        public Picture[] newArray(int size) {
-            return (new Picture[size]);
+        public PictureDTO[] newArray(int size) {
+            return (new PictureDTO[size]);
         }
 
     }

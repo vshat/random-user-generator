@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.vshat.randomusergenerator.R;
+import com.github.vshat.randomusergenerator.util.PicassoUtils;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserDetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.imageview_userdetail_avatar) ImageView avatarImageView;
     @BindView(R.id.textview_userdetail_title) TextView titleTextView;
     @BindView(R.id.textview_userdetail_subtitle) TextView subtitleTextView;
     @BindView(R.id.textview_userdetail_phone_cell) TextView phoneCellTextView;
@@ -30,10 +34,6 @@ public class UserDetailActivity extends AppCompatActivity {
     @BindView(R.id.textview_userdetail_md5) TextView md5TextView;
     @BindView(R.id.textview_userdetail_sha1) TextView sha1TextView;
     @BindView(R.id.textview_userdetail_sha256) TextView sha256TextView;
-
-
-
-
 
 
     public static void start(Context context, String name) {
@@ -72,6 +72,8 @@ public class UserDetailActivity extends AppCompatActivity {
         md5TextView.setText("fc49fb87e0a3f8d319c38348e60fe2e6");
         sha1TextView.setText("58cd166fe955a09c57c9e34bf8a0de8a8bac7f33");
         sha256TextView.setText("5fb87a18e7163ba83f9751afb5f4729ce31355795b59978b2c9128b7736ee7ac");
+
+        PicassoUtils.loadImage(this, "https://randomuser.me/api/portraits/men/78.jpg", avatarImageView);
 
 
     }

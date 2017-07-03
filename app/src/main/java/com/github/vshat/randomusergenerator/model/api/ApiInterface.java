@@ -1,7 +1,7 @@
 package com.github.vshat.randomusergenerator.model.api;
 
 
-import com.github.vshat.randomusergenerator.model.data.ApiResponse;
+import com.github.vshat.randomusergenerator.model.data.ApiResponseDTO;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -11,5 +11,5 @@ public interface ApiInterface {
 
 
     @GET("?nat=US")
-    Observable<ApiResponse> getRandomUsers(@Query("results") int count);
+    Observable<ApiResponseDTO> getRandomUsers(@Query("results") int count);
 }

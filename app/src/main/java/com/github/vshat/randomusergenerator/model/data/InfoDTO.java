@@ -3,11 +3,11 @@ package com.github.vshat.randomusergenerator.model.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Info implements Parcelable
+public class InfoDTO implements Parcelable
 {
 
     @SerializedName("seed")
@@ -22,14 +22,14 @@ public class Info implements Parcelable
     @SerializedName("version")
     @Expose
     private String version;
-    public final static Parcelable.Creator<Info> CREATOR = new Creator<Info>() {
+    public final static Parcelable.Creator<InfoDTO> CREATOR = new Creator<InfoDTO>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Info createFromParcel(Parcel in) {
-            Info instance = new Info();
+        public InfoDTO createFromParcel(Parcel in) {
+            InfoDTO instance = new InfoDTO();
             instance.seed = ((String) in.readValue((String.class.getClassLoader())));
             instance.results = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.page = ((Integer) in.readValue((Integer.class.getClassLoader())));
@@ -37,8 +37,8 @@ public class Info implements Parcelable
             return instance;
         }
 
-        public Info[] newArray(int size) {
-            return (new Info[size]);
+        public InfoDTO[] newArray(int size) {
+            return (new InfoDTO[size]);
         }
 
     }

@@ -1,10 +1,10 @@
 package com.github.vshat.randomusergenerator.model;
 
 
-import com.github.vshat.randomusergenerator.model.data.ApiResponse;
+import com.github.vshat.randomusergenerator.model.data.ApiResponseDTO;
 
 import io.reactivex.Observable;
 
 public interface Model {
-    public Observable<ApiResponse> getUsersList(int count);
+    public Observable<ApiResponseDTO> getUsersList(int count);
 }

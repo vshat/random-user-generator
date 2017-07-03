@@ -1,31 +1,40 @@
 package com.github.vshat.randomusergenerator.view.adapters;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.vshat.randomusergenerator.R;
-import com.github.vshat.randomusergenerator.model.data.Name;
-import com.github.vshat.randomusergenerator.model.data.User;
+import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
+import com.github.vshat.randomusergenerator.util.PicassoUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
     private OnItemClickListener listener;
+    private List<UserBriefInfo> usersList = new ArrayList<>();
+    private Context context;
 
-    public void setUsersList(List<User> usersList) {
+    public UsersAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void setUsersList(List<UserBriefInfo> usersList) {
         this.usersList = usersList;
         notifyDataSetChanged();
     }
-
-    private List<User> usersList = new ArrayList<>();
-
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
@@ -40,9 +49,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        User user = usersList.get(position);
-        Name userName = user.getName();
-        holder.stringView.setText(userName.getFirst() + " " + userName.getLast());
+        UserBriefInfo userBriefInfo = usersList.get(position);
+        holder.nameTextView.setText(userBriefInfo.getName());
+        PicassoUtils.loadImage(context, userBriefInfo.getAvatarUrl(), holder.avatarImageView);
 
     }
 
@@ -57,13 +66,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView stringView;
+        @BindView(R.id.textview_main_user_first_last_name) TextView nameTextView;
+        @BindView(R.id.imageview_main_user_avatar) ImageView avatarImageView;
 
 
         ViewHolder(final View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
 
-            stringView = (TextView) itemView.findViewById(R.id.textview_user_name);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

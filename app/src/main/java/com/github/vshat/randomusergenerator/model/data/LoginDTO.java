@@ -3,11 +3,11 @@ package com.github.vshat.randomusergenerator.model.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Login implements Parcelable
+public class LoginDTO implements Parcelable
 {
 
     @SerializedName("username")
@@ -28,14 +28,14 @@ public class Login implements Parcelable
     @SerializedName("sha256")
     @Expose
     private String sha256;
-    public final static Parcelable.Creator<Login> CREATOR = new Creator<Login>() {
+    public final static Parcelable.Creator<LoginDTO> CREATOR = new Creator<LoginDTO>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Login createFromParcel(Parcel in) {
-            Login instance = new Login();
+        public LoginDTO createFromParcel(Parcel in) {
+            LoginDTO instance = new LoginDTO();
             instance.username = ((String) in.readValue((String.class.getClassLoader())));
             instance.password = ((String) in.readValue((String.class.getClassLoader())));
             instance.salt = ((String) in.readValue((String.class.getClassLoader())));
@@ -45,8 +45,8 @@ public class Login implements Parcelable
             return instance;
         }
 
-        public Login[] newArray(int size) {
-            return (new Login[size]);
+        public LoginDTO[] newArray(int size) {
+            return (new LoginDTO[size]);
         }
 
     }
