@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,19 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupToolbar();
+
+        setupRecyclerView();
+
+
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_userdetail);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupRecyclerView() {
         UsersAdapter usersAdapter = new UsersAdapter(createStringList());
         usersAdapter.setOnItemClickListener(this);
 
@@ -37,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements UsersAdapter.OnIt
 
         recyclerView.setAdapter(usersAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
     }
 
     @Override
