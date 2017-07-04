@@ -20,13 +20,14 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-import io.reactivex.internal.util.SuppressAnimalSniffer;
 import io.reactivex.observers.DisposableObserver;
 
 public class UsersListPresenter {
 
     private final static int USERS_COUNT = 10;
     private static final String BUNDLE_USER_DTOS_KEY = "bundle_user_dtos_key";
+    private static final String BUNDLE_IS_IN_CRITICAL_ERROR_STATE = "bundle_is_in_critical_error_state";
+    private boolean isInCriticalErrorState = false;
 
     private List<UserDTO> userDTOs;
 
@@ -42,18 +43,21 @@ public class UsersListPresenter {
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             userDTOs = (List<UserDTO>) savedInstanceState.getSerializable(BUNDLE_USER_DTOS_KEY);
+            isInCriticalErrorState = savedInstanceState.getBoolean(BUNDLE_IS_IN_CRITICAL_ERROR_STATE);
         }
 
     }
 
     public void onResume(boolean isOnline) {
-        if (!isUserDTOsEmpty()) {
-            processUserDTOs(userDTOs);
-        } else {
-            if(isOnline) {
-                loadUsers();
+        if(!isInCriticalErrorState) {
+            if (!isUserDTOsEmpty()) {
+                processUserDTOs(userDTOs);
             } else {
-                view.showOfflineError();
+                if (isOnline) {
+                    loadUsers();
+                } else {
+                    view.showOfflineError();
+                }
             }
         }
     }
@@ -66,6 +70,7 @@ public class UsersListPresenter {
         if (!isUserDTOsEmpty()) {
             outState.putSerializable(BUNDLE_USER_DTOS_KEY, new ArrayList<>(userDTOs));
         }
+        outState.putBoolean(BUNDLE_IS_IN_CRITICAL_ERROR_STATE, isInCriticalErrorState);
     }
 
     public void onStop() {
@@ -105,9 +110,11 @@ public class UsersListPresenter {
                             if (apiError == null) {
                                 processUserDTOs(apiResponseDTO.getUserDTOs());
                             } else {
+                                isInCriticalErrorState = true;
                                 view.showApiError(apiError);
                             }
                         } else {
+                            isInCriticalErrorState = true;
                             view.showUnknownApiResponse();
                         }
 

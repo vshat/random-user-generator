@@ -17,8 +17,9 @@ import com.github.vshat.randomusergenerator.view.fragments.UsersListFragment;
 
 public class MainActivity extends AppCompatActivity implements ActivityCallback, FragmentManager.OnBackStackChangedListener {
 
+    public static final String TAG_DIALOG_FRAGMENT = "dialog_fragment";
     private static String TAG = "TAG";
-
+    private DialogFragment dialogFragment;
     private FragmentManager fragmentManager;
 
     @Override
@@ -62,17 +63,31 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback,
     }
 
     @Override
-    public void showDialogFragment(DialogFragment dialogFragment) {
-        dialogFragment.show(fragmentManager, "dialog_fragment");
+    public void showDialogFragment(DialogFragment newDialogFragment) {
+        DialogFragment currentDialogFragment =
+                (DialogFragment) fragmentManager.findFragmentByTag(TAG_DIALOG_FRAGMENT);
+
+        if (isDialogShowing(currentDialogFragment)) {
+            currentDialogFragment.getDialog().dismiss();
+        }
+
+        currentDialogFragment = newDialogFragment;
+        currentDialogFragment.show(fragmentManager, TAG_DIALOG_FRAGMENT);
     }
+
+    private boolean isDialogShowing(DialogFragment dialogFragment) {
+        return dialogFragment != null && dialogFragment.getDialog() != null
+                && dialogFragment.getDialog().isShowing();
+    }
+
 
     @Override
     public void onBackStackChanged() {
         shouldDisplayHomeUp();
     }
 
-    private void shouldDisplayHomeUp(){
-        boolean canBack = getSupportFragmentManager().getBackStackEntryCount()>0;
+    private void shouldDisplayHomeUp() {
+        boolean canBack = getSupportFragmentManager().getBackStackEntryCount() > 0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(canBack);
     }
 

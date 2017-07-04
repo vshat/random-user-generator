@@ -43,6 +43,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
     private UsersListPresenter presenter;
     private ActivityCallback activityCallback;
     private Unbinder unbinder;
+    private ErrorDialogFragment errorDialogFragment;
 
 
     @Nullable
@@ -116,7 +117,7 @@ public class UsersListFragment extends Fragment implements UsersListView,
     }
 
     private void showError(String title, String error) {
-        ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance(this, title, error);
+        errorDialogFragment = ErrorDialogFragment.newInstance(this, title, error);
         activityCallback.showDialogFragment(errorDialogFragment);
     }
 
