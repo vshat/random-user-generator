@@ -13,4 +13,8 @@ public interface UsersListView {
     void showError(String error);
 
     void startUserDetailFragment(UserDetailInfo userDetailInfo);
+
+    void showLoading();
+
+    void hideLoading();
 }

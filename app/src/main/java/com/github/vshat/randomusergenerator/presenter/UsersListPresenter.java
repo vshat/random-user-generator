@@ -23,9 +23,8 @@ import io.reactivex.disposables.Disposables;
 import io.reactivex.internal.util.SuppressAnimalSniffer;
 import io.reactivex.observers.DisposableObserver;
 
-// TODO: Implement loading circle
-
 public class UsersListPresenter {
+
     private final static int USERS_COUNT = 10;
     private static final String BUNDLE_USER_DTOS_KEY = "bundle_user_dtos_key";
 
@@ -82,6 +81,8 @@ public class UsersListPresenter {
             disposable.dispose();
         }
 
+        view.showLoading();
+
         disposable = model.getUsersList(USERS_COUNT)
                 .subscribeWith(new DisposableObserver<ApiResponseDTO>() {
                     @Override
@@ -98,13 +99,14 @@ public class UsersListPresenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        view.hideLoading();
                         view.showError(e.getMessage());
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onComplete() {
-
+                        view.hideLoading();
                     }
                 });
     }

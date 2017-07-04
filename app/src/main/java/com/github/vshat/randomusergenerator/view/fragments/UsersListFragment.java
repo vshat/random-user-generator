@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.vshat.randomusergenerator.R;
 import com.github.vshat.randomusergenerator.presenter.UsersListPresenter;
@@ -30,6 +31,8 @@ public class UsersListFragment extends Fragment implements UsersListView {
 
     @BindView(R.id.toolbar_userslist) Toolbar toolbar;
     @BindView(R.id.recyclerview_userslist) RecyclerView recyclerView;
+    @BindView(R.id.progressbar_userlist) ProgressBar progressBar;
+
     private UsersAdapter usersAdapter;
     private UsersListPresenter presenter;
     private ActivityCallback activityCallback;
@@ -39,7 +42,7 @@ public class UsersListFragment extends Fragment implements UsersListView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmenty_userslist, container, false);
+        View view = inflater.inflate(R.layout.fragment_userslist, container, false);
 
         unbinder = ButterKnife.bind(this, view);
 
@@ -66,6 +69,17 @@ public class UsersListFragment extends Fragment implements UsersListView {
     @Override
     public void startUserDetailFragment(UserDetailInfo userDetailInfo) {
         activityCallback.startUserDetailFragment(userDetailInfo);
+    }
+
+    @Override
+    public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+
     }
 
     private void setupRecyclerView() {

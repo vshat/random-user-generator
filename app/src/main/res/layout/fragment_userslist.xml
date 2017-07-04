@@ -21,6 +21,14 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:elevation="4dp"/>
 
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressbar_userlist"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"/>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_userslist"
