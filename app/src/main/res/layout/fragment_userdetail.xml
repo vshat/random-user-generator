@@ -13,20 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"
+        android:elevation="@dimen/any_toolbar_elevation"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"
+        android:elevation="@dimen/any_toolbar_elevation"
         android:paddingBottom="16dp">
 
         <ImageView
             android:id="@+id/imageview_userdetail_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/userdetail_avatar"
+            android:layout_height="@dimen/userdetail_avatar"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
