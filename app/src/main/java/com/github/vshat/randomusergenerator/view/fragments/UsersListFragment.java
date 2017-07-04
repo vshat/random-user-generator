@@ -2,9 +2,10 @@ package com.github.vshat.randomusergenerator.view.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,12 @@ import com.github.vshat.randomusergenerator.R;
 import com.github.vshat.randomusergenerator.presenter.UsersListPresenter;
 import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
 import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
+import com.github.vshat.randomusergenerator.util.NetworkUtils;
 import com.github.vshat.randomusergenerator.view.ActivityCallback;
 import com.github.vshat.randomusergenerator.view.adapters.UsersAdapter;
+import com.github.vshat.randomusergenerator.view.fragments.dialogs.ErrorDialogFragment;
+import com.github.vshat.randomusergenerator.view.fragments.dialogs.NetworkErrorDialogFragment;
+import com.github.vshat.randomusergenerator.view.fragments.dialogs.NetworkErrorDialogListener;
 
 import java.util.List;
 
@@ -27,7 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class UsersListFragment extends Fragment implements UsersListView {
+public class UsersListFragment extends Fragment implements UsersListView,
+        NetworkErrorDialogListener {
 
     @BindView(R.id.toolbar_userslist) Toolbar toolbar;
     @BindView(R.id.recyclerview_userslist) RecyclerView recyclerView;
@@ -60,10 +66,6 @@ public class UsersListFragment extends Fragment implements UsersListView {
         usersAdapter.setUsersList(list);
     }
 
-    @Override
-    public void showError(String error) {
-        showSnackbar(error);
-    }
 
     @Override
     public void startUserDetailFragment(UserDetailInfo userDetailInfo) {
@@ -78,7 +80,44 @@ public class UsersListFragment extends Fragment implements UsersListView {
     @Override
     public void hideLoading() {
         progressBar.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void showOfflineError() {
+        NetworkErrorDialogFragment dialogFragment = NetworkErrorDialogFragment.newInstance(this);
+        activityCallback.showDialogFragment(dialogFragment);
+    }
+
+    @Override
+    public void openNetworkSettings() {
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+        getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void exit() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void showApiError(String apiError) {
+        showError(getString(R.string.userslist_apierror_title), apiError);
+    }
+
+    @Override
+    public void showAppError(String appError) {
+        showError(getString(R.string.userslist_apperror_title), appError);
+    }
+
+    @Override
+    public void showUnknownApiResponse() {
+        showApiError(getString(R.string.userslist_apierror_unknown_message));
+
+    }
+
+    private void showError(String title, String error) {
+        ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance(this, title, error);
+        activityCallback.showDialogFragment(errorDialogFragment);
     }
 
     private void setupRecyclerView() {
@@ -87,10 +126,6 @@ public class UsersListFragment extends Fragment implements UsersListView {
 
         recyclerView.setAdapter(usersAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    private void showSnackbar(String text) {
-        Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -113,6 +148,12 @@ public class UsersListFragment extends Fragment implements UsersListView {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        boolean isOnline = NetworkUtils.isOnline(getContext());
+        presenter.onResume(isOnline);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -135,4 +176,14 @@ public class UsersListFragment extends Fragment implements UsersListView {
     }
 
 
+    @Override
+    public void onExitClick() {
+        presenter.onExitClick();
+
+    }
+
+    @Override
+    public void onSettingsClick() {
+        presenter.onSettingsClick();
+    }
 }

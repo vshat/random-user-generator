@@ -2,4 +2,5 @@
 <resources>
     <dimen name="userdetail_marginleft_invisibleicon">56dp</dimen>
     <dimen name="userdetail_marginleft_noicon">20dp</dimen>
+    <dimen name="userslist_item_avatar">40dp</dimen>
 </resources>

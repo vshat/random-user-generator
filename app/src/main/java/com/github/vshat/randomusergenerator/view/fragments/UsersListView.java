@@ -10,11 +10,21 @@ import java.util.List;
 public interface UsersListView {
     void showData(List<UserBriefInfo> list);
 
-    void showError(String error);
-
     void startUserDetailFragment(UserDetailInfo userDetailInfo);
 
     void showLoading();
 
     void hideLoading();
+
+    void showOfflineError();
+
+    void openNetworkSettings();
+
+    void exit();
+
+    void showApiError(String apiError);
+
+    void showAppError(String appError);
+
+    void showUnknownApiResponse();
 }

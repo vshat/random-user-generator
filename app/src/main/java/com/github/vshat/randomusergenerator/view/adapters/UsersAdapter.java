@@ -64,8 +64,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.textview_main_user_first_last_name) TextView nameTextView;
-        @BindView(R.id.imageview_main_user_avatar) ImageView avatarImageView;
+        @BindView(R.id.textview_userslist_item_user_first_last_name) TextView nameTextView;
+        @BindView(R.id.imageview_userslist_item_user_avatar) ImageView avatarImageView;
 
 
         ViewHolder(final View itemView) {

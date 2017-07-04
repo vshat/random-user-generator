@@ -44,12 +44,18 @@ public class UsersListPresenter {
             userDTOs = (List<UserDTO>) savedInstanceState.getSerializable(BUNDLE_USER_DTOS_KEY);
         }
 
+    }
+
+    public void onResume(boolean isOnline) {
         if (!isUserDTOsEmpty()) {
             processUserDTOs(userDTOs);
         } else {
-            loadUsers();
+            if(isOnline) {
+                loadUsers();
+            } else {
+                view.showOfflineError();
+            }
         }
-
     }
 
     private boolean isUserDTOsEmpty() {
@@ -72,7 +78,14 @@ public class UsersListPresenter {
         UserDTO selectedUserDTO = userDTOs.get(position);
         UserDetailInfo userDetailInfo = UserDetailInfoMapper.map(selectedUserDTO);
         view.startUserDetailFragment(userDetailInfo);
+    }
 
+    public void onSettingsClick() {
+        view.openNetworkSettings();
+    }
+
+    public void onExitClick() {
+        view.exit();
     }
 
     private void loadUsers() {
@@ -88,11 +101,14 @@ public class UsersListPresenter {
                     @Override
                     public void onNext(@NonNull ApiResponseDTO apiResponseDTO) {
                         if (apiResponseDTO != null) {
-                            if (apiResponseDTO.getError() == null) {
+                            String apiError = apiResponseDTO.getError();
+                            if (apiError == null) {
                                 processUserDTOs(apiResponseDTO.getUserDTOs());
+                            } else {
+                                view.showApiError(apiError);
                             }
                         } else {
-                            view.showError("Null response");
+                            view.showUnknownApiResponse();
                         }
 
                     }
@@ -100,7 +116,7 @@ public class UsersListPresenter {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         view.hideLoading();
-                        view.showError(e.getMessage());
+                        view.showAppError(e.getMessage());
                         e.printStackTrace();
                     }
 

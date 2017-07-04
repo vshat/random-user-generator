@@ -1,6 +1,7 @@
 package com.github.vshat.randomusergenerator.view;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback,
     @Override
     public void startUserDetailFragment(UserDetailInfo userDetailInfo) {
         replaceFragment(UserDetailFragment.newInstance(userDetailInfo), true);
+    }
+
+    @Override
+    public void showDialogFragment(DialogFragment dialogFragment) {
+        dialogFragment.show(fragmentManager, "dialog_fragment");
     }
 
     @Override

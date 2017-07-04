@@ -14,4 +14,14 @@
     <string name="userdetail_sha256">SHA256</string>
     <string name="userdetail_about">About %1$s</string>
 
+    <string name="dialog_networkerror_title">Network Error</string>
+    <string name="dialog_networkerror_message">You are offline</string>
+    <string name="dialog_networkerror_settings_button">Settings</string>
+    <string name="dialog_error_exit_button">Exit</string>
+
+    <string name="userslist_apierror_title">Api error</string>
+    <string name="userslist_apierror_unknown_message">Unknown api response</string>
+    <string name="userslist_apperror_title">Application error</string>
+
+
 </resources>
