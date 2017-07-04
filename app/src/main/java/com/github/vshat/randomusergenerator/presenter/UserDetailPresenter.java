@@ -19,7 +19,7 @@ public class UserDetailPresenter {
     private void showData() {
         view.setAvatarUrl(user.getAvatarUrl());
         view.setTitle(user.getFullName());
-        view.setSubtitle(user.getFirstName());
+        view.setSubtitle(user.getEmail());
         view.setCellPhone(user.getCellPhone());
         view.setHomePhone(user.getHomePhone());
         view.setLocation(user.getLocation());

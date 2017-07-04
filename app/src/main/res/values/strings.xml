@@ -12,4 +12,6 @@
     <string name="userdetail_md5">MD5</string>
     <string name="userdetail_sha1">SHA1</string>
     <string name="userdetail_sha256">SHA256</string>
+    <string name="userdetail_about">About %1$s</string>
+
 </resources>

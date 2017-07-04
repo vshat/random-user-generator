@@ -131,7 +131,8 @@ public class UserDetailFragment extends Fragment implements UserDetailView {
 
     @Override
     public void setAboutName(String aboutName) {
-        aboutUserTextView.setText(aboutName);
+        aboutUserTextView.setText(
+                getString(R.string.userdetail_about, aboutName));
     }
 
     @Override
