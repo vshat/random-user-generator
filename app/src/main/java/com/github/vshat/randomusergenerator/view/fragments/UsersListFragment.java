@@ -47,14 +47,13 @@ public class UsersListFragment extends Fragment implements UsersListView {
         unbinder = ButterKnife.bind(this, view);
 
         setupRecyclerView();
+
         activityCallback.setupToolbar(toolbar);
 
-        presenter = new UsersListPresenter(this);
-        presenter.onCreate(savedInstanceState);
+        setupPresenter(savedInstanceState);
 
         return view;
     }
-
 
     @Override
     public void showData(List<UserBriefInfo> list) {
@@ -125,6 +124,14 @@ public class UsersListFragment extends Fragment implements UsersListView {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void setupPresenter(Bundle savedInstanceState) {
+        if (presenter == null) {
+            presenter = new UsersListPresenter(this);
+        }
+
+        presenter.onCreate(savedInstanceState);
     }
 
 

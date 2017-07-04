@@ -28,7 +28,7 @@ public class UsersListPresenter {
     private final static int USERS_COUNT = 10;
     private static final String BUNDLE_USER_DTOS_KEY = "bundle_user_dtos_key";
 
-    private List<UserDTO> userDTOs = new ArrayList<>();
+    private List<UserDTO> userDTOs;
 
     private Model model = new ModelImpl();
 

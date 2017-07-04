@@ -14,11 +14,7 @@ import com.github.vshat.randomusergenerator.view.fragments.UserDetailFragment;
 import com.github.vshat.randomusergenerator.view.fragments.UsersListFragment;
 
 
-// TODO: fix back top-left button in all fragments
-
-// TODO: fix data loss when back pressed
-
-public class MainActivity extends AppCompatActivity implements ActivityCallback {
+public class MainActivity extends AppCompatActivity implements ActivityCallback, FragmentManager.OnBackStackChangedListener {
 
     private static String TAG = "TAG";
 
@@ -30,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.addOnBackStackChangedListener(this);
 
         Fragment fragment = fragmentManager.findFragmentByTag(TAG);
         if (fragment == null) {
@@ -50,14 +48,31 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     public ActionBar setupToolbar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
+
+        shouldDisplayHomeUp();
+
         return supportActionBar;
 
     }
 
-
     @Override
     public void startUserDetailFragment(UserDetailInfo userDetailInfo) {
         replaceFragment(UserDetailFragment.newInstance(userDetailInfo), true);
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        shouldDisplayHomeUp();
+    }
+
+    private void shouldDisplayHomeUp(){
+        boolean canBack = getSupportFragmentManager().getBackStackEntryCount()>0;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(canBack);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        getSupportFragmentManager().popBackStack();
+        return true;
     }
 }
