@@ -1,6 +1,5 @@
 package com.github.vshat.randomusergenerator.presenter;
 
-
 import android.os.Bundle;
 
 import com.github.vshat.randomusergenerator.model.Model;
@@ -40,6 +39,7 @@ public class UsersListPresenter {
         this.view = view;
     }
 
+    @SuppressWarnings("unchecked")
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             userDTOs = (List<UserDTO>) savedInstanceState.getSerializable(BUNDLE_USER_DTOS_KEY);
@@ -49,7 +49,7 @@ public class UsersListPresenter {
     }
 
     public void onResume(boolean isOnline) {
-        if(!isInCriticalErrorState) {
+        if (!isInCriticalErrorState) {
             if (!isUserDTOsEmpty()) {
                 processUserDTOs(userDTOs);
             } else {
@@ -117,7 +117,6 @@ public class UsersListPresenter {
                             isInCriticalErrorState = true;
                             view.showUnknownApiResponse();
                         }
-
                     }
 
                     @Override
@@ -143,13 +142,15 @@ public class UsersListPresenter {
 
     private void sortUserDTOs(List<UserDTO> userDTOs) {
         Collections.sort(userDTOs, (u1, u2) -> {
-            int c;
-            c = u1.getNameDTO().getFirst().compareTo(u2.getNameDTO().getFirst());
-            if (c == 0) {
-                c = u1.getNameDTO().getLast().compareTo(u2.getNameDTO().getLast());
+            int compareResult = u1.getNameDTO().getFirst().compareTo(
+                    u2.getNameDTO().getFirst());
+
+            if (compareResult == 0) {
+                compareResult = u1.getNameDTO().getLast().compareTo(
+                        u2.getNameDTO().getLast());
             }
-            return c;
+
+            return compareResult;
         });
     }
-
 }

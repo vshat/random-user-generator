@@ -1,6 +1,5 @@
 package com.github.vshat.randomusergenerator.presenter.vo;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,7 +15,6 @@ public class UserBriefInfo implements Parcelable {
     public String getFullName() {
         return fullName;
     }
-
 
     public String getAvatarUrl() {
         return avatarUrl;

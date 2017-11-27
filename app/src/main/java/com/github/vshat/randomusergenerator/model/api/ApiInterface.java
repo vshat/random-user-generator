@@ -9,7 +9,6 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-
     @GET("?nat=US")
     Observable<ApiResponseDTO> getRandomUsers(@Query("results") int count);
 }

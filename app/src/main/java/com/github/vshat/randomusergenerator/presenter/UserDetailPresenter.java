@@ -34,7 +34,4 @@ public class UserDetailPresenter {
         view.setSha1(user.getSha1());
         view.setSha256(user.getSha256());
     }
-
-
-
 }

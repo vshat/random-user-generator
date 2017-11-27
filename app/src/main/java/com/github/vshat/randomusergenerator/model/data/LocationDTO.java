@@ -7,27 +7,26 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LocationDTO implements Parcelable
-{
-
+public class LocationDTO implements Parcelable {
     @SerializedName("street")
     @Expose
     private String street;
+
     @SerializedName("city")
     @Expose
     private String city;
+
     @SerializedName("state")
     @Expose
     private String state;
+
     @SerializedName("postcode")
     @Expose
     private String postcode;
+
     public final static Parcelable.Creator<LocationDTO> CREATOR = new Creator<LocationDTO>() {
 
-
-        @SuppressWarnings({
-            "unchecked"
-        })
+        @SuppressWarnings("unchecked")
         public LocationDTO createFromParcel(Parcel in) {
             LocationDTO instance = new LocationDTO();
             instance.street = ((String) in.readValue((String.class.getClassLoader())));
@@ -41,8 +40,7 @@ public class LocationDTO implements Parcelable
             return (new LocationDTO[size]);
         }
 
-    }
-    ;
+    };
 
     public String getStreet() {
         return street;
@@ -84,7 +82,7 @@ public class LocationDTO implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

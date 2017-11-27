@@ -7,24 +7,22 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PictureDTO implements Parcelable
-{
-
+public class PictureDTO implements Parcelable {
     @SerializedName("large")
     @Expose
     private String large;
+
     @SerializedName("medium")
     @Expose
     private String medium;
+
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+
     public final static Parcelable.Creator<PictureDTO> CREATOR = new Creator<PictureDTO>() {
 
-
-        @SuppressWarnings({
-            "unchecked"
-        })
+        @SuppressWarnings("unchecked")
         public PictureDTO createFromParcel(Parcel in) {
             PictureDTO instance = new PictureDTO();
             instance.large = ((String) in.readValue((String.class.getClassLoader())));
@@ -37,8 +35,7 @@ public class PictureDTO implements Parcelable
             return (new PictureDTO[size]);
         }
 
-    }
-    ;
+    };
 
     public String getLarge() {
         return large;
@@ -71,7 +68,7 @@ public class PictureDTO implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

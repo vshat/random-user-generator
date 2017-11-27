@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback,
 
     public static final String TAG_DIALOG_FRAGMENT = "dialog_fragment";
     private static String TAG = "TAG";
+
     private DialogFragment dialogFragment;
     private FragmentManager fragmentManager;
 
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback,
         shouldDisplayHomeUp();
 
         return supportActionBar;
-
     }
 
     @Override

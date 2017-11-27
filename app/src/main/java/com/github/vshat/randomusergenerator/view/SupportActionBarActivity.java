@@ -5,6 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 public interface SupportActionBarActivity {
-    ActionBar setupToolbar(Toolbar toolbar);
 
+    ActionBar setupToolbar(Toolbar toolbar);
 }

@@ -1,6 +1,5 @@
 package com.github.vshat.randomusergenerator.presenter.mappers;
 
-
 import android.text.TextUtils;
 
 import com.github.vshat.randomusergenerator.model.data.LocationDTO;
@@ -39,7 +38,6 @@ public class UserDetailInfoMapper {
         userDetailInfo.setSha1(loginDTO.getSha1());
         userDetailInfo.setSha256(loginDTO.getSha256());
 
-
         return userDetailInfo;
     }
 
@@ -61,6 +59,5 @@ public class UserDetailInfoMapper {
                 ", " +
                 locationDTO.getPostcode();
     }
-
 
 }

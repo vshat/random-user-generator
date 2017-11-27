@@ -7,21 +7,18 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class IdDTO implements Parcelable
-{
-
+public class IdDTO implements Parcelable {
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("value")
     @Expose
     private String value;
+
     public final static Parcelable.Creator<IdDTO> CREATOR = new Creator<IdDTO>() {
 
-
-        @SuppressWarnings({
-            "unchecked"
-        })
+        @SuppressWarnings("unchecked")
         public IdDTO createFromParcel(Parcel in) {
             IdDTO instance = new IdDTO();
             instance.name = ((String) in.readValue((String.class.getClassLoader())));
@@ -33,8 +30,7 @@ public class IdDTO implements Parcelable
             return (new IdDTO[size]);
         }
 
-    }
-    ;
+    };
 
     public String getName() {
         return name;
@@ -58,7 +54,7 @@ public class IdDTO implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

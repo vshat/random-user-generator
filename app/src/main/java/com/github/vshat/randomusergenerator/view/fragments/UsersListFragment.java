@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,8 +44,6 @@ public class UsersListFragment extends Fragment implements UsersListView,
     private UsersListPresenter presenter;
     private ActivityCallback activityCallback;
     private Unbinder unbinder;
-    private ErrorDialogFragment errorDialogFragment;
-
 
     @Nullable
     @Override
@@ -117,8 +116,9 @@ public class UsersListFragment extends Fragment implements UsersListView,
     }
 
     private void showError(String title, String error) {
-        errorDialogFragment = ErrorDialogFragment.newInstance(this, title, error);
-        activityCallback.showDialogFragment(errorDialogFragment);
+        DialogFragment dialog = ErrorDialogFragment.newInstance(this, title, error);
+
+        activityCallback.showDialogFragment(dialog);
     }
 
     private void setupRecyclerView() {

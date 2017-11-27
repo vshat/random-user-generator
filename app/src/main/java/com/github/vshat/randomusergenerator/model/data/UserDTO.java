@@ -7,51 +7,58 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserDTO implements Parcelable
-{
-
+public class UserDTO implements Parcelable {
     @SerializedName("gender")
     @Expose
     private String gender;
+
     @SerializedName("name")
     @Expose
     private NameDTO nameDTO;
+
     @SerializedName("location")
     @Expose
     private LocationDTO locationDTO;
+
     @SerializedName("email")
     @Expose
     private String email;
+
     @SerializedName("login")
     @Expose
     private LoginDTO loginDTO;
+
     @SerializedName("dob")
     @Expose
     private String dob;
+
     @SerializedName("registered")
     @Expose
     private String registered;
+
     @SerializedName("phone")
     @Expose
     private String phone;
+
     @SerializedName("cell")
     @Expose
     private String cell;
+
     @SerializedName("id")
     @Expose
     private IdDTO idDTO;
+
     @SerializedName("picture")
     @Expose
     private PictureDTO pictureDTO;
+
     @SerializedName("nat")
     @Expose
     private String nat;
+
     public final static Parcelable.Creator<UserDTO> CREATOR = new Creator<UserDTO>() {
 
-
-        @SuppressWarnings({
-            "unchecked"
-        })
+        @SuppressWarnings("unchecked")
         public UserDTO createFromParcel(Parcel in) {
             UserDTO instance = new UserDTO();
             instance.gender = ((String) in.readValue((String.class.getClassLoader())));
@@ -73,8 +80,7 @@ public class UserDTO implements Parcelable
             return (new UserDTO[size]);
         }
 
-    }
-    ;
+    };
 
     public String getGender() {
         return gender;
@@ -188,7 +194,7 @@ public class UserDTO implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

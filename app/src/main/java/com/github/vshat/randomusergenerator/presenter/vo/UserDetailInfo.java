@@ -161,7 +161,7 @@ public class UserDetailInfo implements Parcelable {
 
     public UserDetailInfo() {}
 
-    protected UserDetailInfo(Parcel in) {
+    private UserDetailInfo(Parcel in) {
         avatarUrl = in.readString();
         fullName = in.readString();
         firstName = in.readString();

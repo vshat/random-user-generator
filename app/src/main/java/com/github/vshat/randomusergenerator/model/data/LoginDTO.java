@@ -7,33 +7,34 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginDTO implements Parcelable
-{
-
+public class LoginDTO implements Parcelable {
     @SerializedName("username")
     @Expose
     private String username;
+
     @SerializedName("password")
     @Expose
     private String password;
+
     @SerializedName("salt")
     @Expose
     private String salt;
+
     @SerializedName("md5")
     @Expose
     private String md5;
+
     @SerializedName("sha1")
     @Expose
     private String sha1;
+
     @SerializedName("sha256")
     @Expose
     private String sha256;
+
     public final static Parcelable.Creator<LoginDTO> CREATOR = new Creator<LoginDTO>() {
 
-
-        @SuppressWarnings({
-            "unchecked"
-        })
+        @SuppressWarnings("unchecked")
         public LoginDTO createFromParcel(Parcel in) {
             LoginDTO instance = new LoginDTO();
             instance.username = ((String) in.readValue((String.class.getClassLoader())));
@@ -49,8 +50,7 @@ public class LoginDTO implements Parcelable
             return (new LoginDTO[size]);
         }
 
-    }
-    ;
+    };
 
     public String getUsername() {
         return username;
@@ -110,7 +110,7 @@ public class LoginDTO implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

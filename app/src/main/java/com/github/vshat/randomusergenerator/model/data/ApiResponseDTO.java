@@ -1,31 +1,30 @@
 
 package com.github.vshat.randomusergenerator.model.data;
 
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ApiResponseDTO implements Parcelable
-{
+import java.util.List;
 
+public class ApiResponseDTO implements Parcelable {
     @SerializedName("results")
     @Expose
     private List<UserDTO> userDTOs = null;
+
     @SerializedName("info")
     @Expose
     private InfoDTO infoDTO;
+
     @SerializedName("error")
     @Expose
     private String error;
+
     public final static Parcelable.Creator<ApiResponseDTO> CREATOR = new Creator<ApiResponseDTO>() {
 
-
-        @SuppressWarnings({
-            "unchecked"
-        })
+        @SuppressWarnings("unchecked")
         public ApiResponseDTO createFromParcel(Parcel in) {
             ApiResponseDTO instance = new ApiResponseDTO();
             in.readList(instance.userDTOs, (UserDTO.class.getClassLoader()));
@@ -38,8 +37,7 @@ public class ApiResponseDTO implements Parcelable
             return (new ApiResponseDTO[size]);
         }
 
-    }
-    ;
+    };
 
     public List<UserDTO> getUserDTOs() {
         return userDTOs;
@@ -72,7 +70,7 @@ public class ApiResponseDTO implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

@@ -50,7 +50,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         UserBriefInfo userBriefInfo = usersList.get(position);
         holder.nameTextView.setText(userBriefInfo.getFullName());
         PicassoUtils.loadImage(context, userBriefInfo.getAvatarUrl(), holder.avatarImageView);
-
     }
 
     @Override
@@ -63,10 +62,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
         @BindView(R.id.textview_userslist_item_user_first_last_name) TextView nameTextView;
         @BindView(R.id.imageview_userslist_item_user_avatar) ImageView avatarImageView;
-
 
         ViewHolder(final View itemView) {
             super(itemView);

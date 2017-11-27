@@ -1,7 +1,5 @@
 package com.github.vshat.randomusergenerator.view.fragments;
 
-
-import com.github.vshat.randomusergenerator.model.data.UserDTO;
 import com.github.vshat.randomusergenerator.presenter.vo.UserBriefInfo;
 import com.github.vshat.randomusergenerator.presenter.vo.UserDetailInfo;
 
