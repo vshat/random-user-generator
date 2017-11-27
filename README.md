@@ -5,3 +5,6 @@ The android app for generating random user data
 
 ## Screenshots
 ![Screenshots](https://i.imgur.com/uDLue65.png)
+
+## Downloads
+[Releases](https://github.com/vshat/random-user-generator/releases)
